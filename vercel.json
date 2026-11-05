@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app.py": {
+      "excludeFiles": "{*.csv,*.ipynb,__pycache__/**}"
+    }
+  }
+}
