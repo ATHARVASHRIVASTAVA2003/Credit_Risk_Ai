@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: credit-risk-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:$PORT --timeout 120
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10"
+    autoDeploy: true
+    healthCheckPath: /health
+    # Static files are served via /static/* endpoint

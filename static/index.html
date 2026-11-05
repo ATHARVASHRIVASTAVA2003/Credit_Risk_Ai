@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0b0a1f" />
+<title>Credit Ledger — Loan Risk Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead__mark">
+      <svg class="masthead__seal" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9b8cff" />
+            <stop offset="1" stop-color="#2fd8e6" />
+          </linearGradient>
+        </defs>
+        <path class="logo__hex" d="M24 3 L42 13.5 V34.5 L24 45 L6 34.5 V13.5 Z" />
+        <path class="logo__line" d="M13 31 L20 23 L26 28 L35 16" />
+        <circle class="logo__node" cx="35" cy="16" r="2.6" />
+      </svg>
+      <div>
+        <h1>Credit Risk AI</h1>
+        <p class="masthead__tag">A smart system for assessing consumer loan applications</p>
+      </div>
+    </div>
+    <div class="masthead__status" id="apiStatus">
+      <span class="dot" id="apiDot"></span>
+      <span id="apiStatusText">checking service…</span>
+    </div>
+  </header>
+
+  <form class="ledger" id="riskForm" novalidate>
+
+    <fieldset class="ledger__section">
+      <legend>
+        <svg class="legend__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        Applicant
+      </legend>
+
+      <div class="row">
+        <label for="person_age">Age</label>
+        <div class="field">
+          <input type="number" id="person_age" name="person_age" min="18" max="100" step="1" value="30" required />
+          <span class="unit">years</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="person_income">Annual income</label>
+        <div class="field">
+          <span class="unit unit--prefix">₹</span>
+          <input type="number" id="person_income" name="person_income" min="0" step="1000" value="600000" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="person_home_ownership">Home ownership</label>
+        <div class="field">
+          <select id="person_home_ownership" name="person_home_ownership" required>
+            <option value="RENT">Renting</option>
+            <option value="MORTGAGE">Mortgage</option>
+            <option value="OWN">Owns outright</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="person_emp_length">Employment length</label>
+        <div class="field">
+          <input type="number" id="person_emp_length" name="person_emp_length" min="0" max="60" step="0.5" value="5" required />
+          <span class="unit">years</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="ledger__section">
+      <legend>
+        <svg class="legend__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9.5v.01M18 14.5v.01"/></svg>
+        Loan request
+      </legend>
+
+      <div class="row">
+        <label for="loan_intent">Purpose</label>
+        <div class="field">
+          <select id="loan_intent" name="loan_intent" required>
+            <option value="PERSONAL">Personal</option>
+            <option value="EDUCATION">Education</option>
+            <option value="MEDICAL">Medical</option>
+            <option value="VENTURE">Venture</option>
+            <option value="HOMEIMPROVEMENT">Home improvement</option>
+            <option value="DEBTCONSOLIDATION">Debt consolidation</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="loan_grade">Loan grade</label>
+        <div class="field">
+          <select id="loan_grade" name="loan_grade" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="loan_amnt">Loan amount</label>
+        <div class="field">
+          <span class="unit unit--prefix">₹</span>
+          <input type="number" id="loan_amnt" name="loan_amnt" min="0" step="500" value="100000" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="loan_int_rate">Interest rate</label>
+        <div class="field">
+          <input type="number" id="loan_int_rate" name="loan_int_rate" min="0" max="40" step="0.01" value="11.5" required />
+          <span class="unit">%</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="loan_percent_income">Loan as % of income</label>
+        <div class="field">
+          <input type="number" id="loan_percent_income" name="loan_percent_income" min="0" max="1" step="0.01" value="0.17" required />
+          <span class="unit">ratio</span>
+        </div>
+      </div>
+      <p class="hint" id="percentHint">Calculated from income and loan amount — edit if you need to override it.</p>
+    </fieldset>
+
+    <fieldset class="ledger__section">
+      <legend>
+        <svg class="legend__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 7.7-8 9-4.8-1.3-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        Credit bureau file
+      </legend>
+
+      <div class="row">
+        <label for="cb_person_default_on_file">Prior default on file</label>
+        <div class="field">
+          <select id="cb_person_default_on_file" name="cb_person_default_on_file" required>
+            <option value="N">No</option>
+            <option value="Y">Yes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="cb_person_cred_hist_length">Credit history length</label>
+        <div class="field">
+          <input type="number" id="cb_person_cred_hist_length" name="cb_person_cred_hist_length" min="0" max="60" step="1" value="6" required />
+          <span class="unit">years</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="submit-row">
+      <button type="submit" id="submitBtn">
+        <span class="btn-label">Assess risk</span>
+        <span class="btn-spinner" aria-hidden="true"></span>
+      </button>
+      <p class="error-note" id="errorNote" role="alert" hidden></p>
+    </div>
+
+  </form>
+
+  <section class="verdict" id="verdict" aria-live="polite" hidden>
+    <div class="verdict__inner">
+
+      <div class="verdict__gauge">
+        <svg viewBox="0 0 200 200" class="gauge">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9b8cff" />
+              <stop offset="1" stop-color="#2fd8e6" />
+            </linearGradient>
+          </defs>
+          <circle class="gauge__track" cx="100" cy="100" r="86" />
+          <circle class="gauge__fill" id="gaugeFill" cx="100" cy="100" r="86" />
+          <line class="gauge__threshold" id="gaugeThreshold" x1="100" y1="14" x2="100" y2="30" />
+        </svg>
+        <div class="gauge__readout">
+          <span class="gauge__value"><span class="gauge__number" id="probNumber">0</span><span class="gauge__percent">%</span></span>
+          <span class="gauge__caption">default probability</span>
+        </div>
+      </div>
+
+      <div class="verdict__detail">
+        <div class="stamp-wrap">
+          <div class="stamp" id="stampBadge">
+            <span id="stampText">LOW RISK</span>
+          </div>
+        </div>
+
+        <dl class="ledger-facts">
+          <div>
+            <dt>Default probability</dt>
+            <dd id="factProb">—</dd>
+          </div>
+          <div>
+            <dt>Decision threshold</dt>
+            <dd id="factThreshold">—</dd>
+          </div>
+          <div>
+            <dt>Model verdict</dt>
+            <dd id="factResult">—</dd>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Figures are model estimates, not a lending decision. Recorded for reference only.</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
